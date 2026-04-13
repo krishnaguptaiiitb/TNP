@@ -1,0 +1,182 @@
+.field-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--size-radius);
+  box-shadow: var(--shadow-sm);
+  min-height: 50px;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  flex-grow: 1;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-background-light);
+  color: var(--color-text-dark);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border-default);
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+  cursor: grab;
+  user-select: none;
+}
+
+.tag:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+  background-color: #eaeaea;
+}
+
+.tag.drag-over {
+  border: 1px dashed var(--color-primary);
+  background-color: #f0f0f0;
+}
+
+.remove-btn {
+  border: none;
+  background: none;
+  color: var(--color-text-medium);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.remove-btn:hover {
+  color: #ff3333;
+}
+
+/* + Button */
+.add-field-btn {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.add-field-btn:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-field-btn:active {
+  background-color: #444;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: var(--space-sm);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--size-radius);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  width: 200px;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-background-light);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================================
+   # LIST VIEW TABLE STYLING
+   ========================================================================= */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--size-radius);
+  box-shadow: var(--shadow-sm);
+  margin-top: var(--space-md);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--size-radius);
+  overflow: hidden;
+  font-size: 0.95rem;
+  background-color: var(--color-surface);
+}
+
+th,
+td {
+  border: 1px solid var(--color-border-default);
+  padding: 12px 15px;
+  text-align: left;
+  color: var(--color-text-dark);
+}
+
+th {
+  background-color: var(--color-background-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+thead tr {
+  border-bottom: 2px solid var(--color-border-default);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}

@@ -1,0 +1,105 @@
+:root {
+  /* Define a color palette using CSS variables for easy theming */
+  --color-primary: #000000;         /* Pure Black for accents/text */
+  --color-secondary: #333333;       /* Dark Gray for buttons/active states */
+  --color-text-light: #ffffff;      /* White text */
+  --color-background-light: #f7f7f7; /* Off-White for main background */
+  --color-sidebar-bg: #4a4a4a;      /* Medium Dark Gray for the sidebar */
+  --color-border: #e0e0e0;          /* Light border color */
+  
+  /* Resetting margin/padding globally is often better on the body/html */
+  box-sizing: border-box; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Use universal selector for box-sizing reset */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--color-primary);
+  background-color: var(--color-background-light);
+  /* Smoother scrolling for general user experience */
+  scroll-behavior: smooth; 
+}
+
+#root {
+  /* Set #root to fill the viewport */
+  width: 100vw;
+  height: 100vh;
+}
+
+/* --- Main Application Container --- */
+.content-container {
+  width: 100%;
+  height: 100%;
+  /* Use fixed column for sidebar and 1fr for main content */
+  display: grid;
+  /* Sidebar is 250px wide, main content takes the rest */
+  grid-template-columns: 250px 1fr; 
+  background-color: var(--color-background-light);
+}
+
+/* --- Navigation (Sidebar) --- */
+nav {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-sidebar-bg);
+  color: var(--color-text-light);
+  /* Optional: Shadow for separation from main content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Allow scrolling if many links exist */
+  padding-top: 1rem; /* Space at the top */
+}
+
+/* --- Navigation Links/Items --- */
+nav a, nav span {
+  text-decoration: none;
+  padding: 0.75rem 1.5rem; /* Better vertical/horizontal padding */
+  color: inherit; /* Keeps link color white */
+  font-size: 1rem;
+  font-weight: 500;
+  /* Animation for hover/focus */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+  cursor: pointer;
+}
+
+/* --- Active/Selected Link State --- */
+nav .active {
+  background-color: var(--color-primary); /* Pure black for strong contrast */
+  font-weight: 600; /* Bolder text for active state */
+}
+
+/* --- Content Area --- */
+.content-main {
+  width: 100%;
+  height: 100%;
+  /* Ensure main content handles its own padding and flow */
+  padding: 1.5rem; 
+  /* Removed align-items: center and justify-content: center */
+  /* This allows content to flow naturally, usually top-left */
+  display: block; 
+  overflow-y: auto; /* Allow vertical scrolling for main content */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* --- Placeholder/Utility Classes --- */
+
+/* Removed .session-data and .active-item as they are confusing/redundant 
+   with nav .active. If they are used elsewhere, define them clearly. */
+
+/* If you need a centered content area: */
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Important for centering */
+}

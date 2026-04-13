@@ -1,0 +1,547 @@
+/* =========================================================================
+   # VARIABLES & THEME
+   ========================================================================= */
+
+:root {
+  /* Colors */
+  --color-primary: #000000;
+  --color-secondary: #333333;
+  --color-text-dark: #1a1a1a;
+  --color-text-medium: #444444;
+  --color-background-light: #f7f7f7;
+  --color-surface: #ffffff;
+  --color-border-default: #e0e0e0;
+  --color-border-input: #cccccc;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+
+  /* Sizing */
+  --size-input-height: 40px;
+  --size-radius: 6px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================================================
+   # BASE LAYOUT AND TYPOGRAPHY
+   ========================================================================= */
+
+.company-container {
+  width: 100%;
+  height: 100%;
+  padding: var(--space-sm);
+  box-sizing: border-box;
+  background-color: var(--color-background-light);
+  color: var(--color-text-dark);
+  overflow: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.title-bar {
+  width: 100%;
+  background-color: var(--color-surface);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* =========================================================================
+   # SEARCH BAR AND ACTION BUTTON
+   ========================================================================= */
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: 1000px;
+  margin: var(--space-md) auto;
+  padding: 0 var(--space-sm);
+}
+
+.search-input-group {
+  display: flex;
+  width: 600px;
+  height: var(--size-input-height);
+  flex-shrink: 0;
+}
+
+/* --- Search Input --- */
+.search-bar input {
+  flex-grow: 1;
+  height: 100%;
+  padding: 0 1em;
+  font-size: 1rem;
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  border: 1px solid #a0a0a0;
+  border-right: none;
+  border-radius: var(--size-radius) 0 0 var(--size-radius);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.search-bar input:focus {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+/* --- Dropdown and Button Group (Clickables) --- */
+.clickables {
+  display: flex;
+  height: 100%;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.filter-dropdown,
+.clickables .search-button,
+.clickables .filter-button {
+  height: 100%;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-surface);
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filter-dropdown,
+.clickables .filter-button {
+  padding: 0 10px;
+}
+
+.clickables .search-button {
+  padding: 0 15px;
+  border-radius: 0 var(--size-radius) var(--size-radius) 0; /* Only search button gets right border radius */
+}
+
+/* --- Common Hover/Focus States for Filter and Search Buttons --- */
+.filter-dropdown:hover,
+.clickables .search-button:hover,
+.clickables .filter-button:hover {
+  background-color: var(--color-text-dark); /* #1a1a1a */
+}
+
+.clickables .search-button:active,
+.filter-dropdown:active {
+  background-color: #555555;
+}
+
+.filter-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 25px; /* Space for a custom caret/icon */
+  border-left: 1px solid #444444; /* Darker border between dropdown and search/filter btn */
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+/* --- Primary Action Button (Add Company +) --- */
+.add-company-button {
+  height: var(--size-input-height);
+  padding: 0 20px;
+  font-size: var(--space-sm);
+  font-weight: 600;
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--size-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+  position: absolute;
+  right: var(--space-sm);
+}
+
+.add-company-button:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-company-button:active {
+  background-color: #444444;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* =========================================================================
+   # COMPANY LIST AND CARDS
+   ========================================================================= */
+
+.company-list {
+  display: grid;
+  height: max-content;
+  grid-template-columns: repeat(3, 1fr); /* Simplified 3-column layout */
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-sm);
+}
+
+.company-card {
+  width: 100%;
+  border-radius: var(--size-radius);
+  overflow: hidden;
+  background-color: var(--color-surface);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.company-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.company-card-text {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-grp {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* --- Common Button Styling for Company Actions --- */
+.company-btn,
+.edit-btn,
+.close-btn {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  padding: var(--space-xs) var(--space-md);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--size-radius);
+  margin: var(--space-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+}
+
+.company-btn:hover,
+.edit-btn:hover,
+.close-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+.company-btn:active {
+  background-color: #444444;
+  transform: scale(0.98);
+}
+
+/* =========================================================================
+   # MODAL / FORM OVERLAY STYLING (ADD/INFO)
+   ========================================================================= */
+
+/* Grouping the overlay styles */
+.add-company-container,
+.company-info-container {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grouping the backdrop styles */
+.add-company-container::before,
+.company-info-container::before {
+  content: ""; /* Required for ::before to render */
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: var(--color-primary);
+  opacity: 0.7;
+  /* Removed redundant flex/align/justify from the pseudo-element */
+}
+
+.info-app {
+  width: 400px;
+  height: 400px;
+  z-index: 1000;
+  border-radius: var(--size-radius);
+  background-color: var(--color-surface);
+  top: 0; /* Redundant if container is absolute, but harmless */
+}
+
+/* =========================================================================
+   # ADD COMPANY FORM STYLING (2-COLUMN GRID)
+   ========================================================================= */
+
+.add-company {
+  position: relative;
+  display: grid;
+  width: 100%;
+  z-index: 100;
+  margin: var(--space-sm);
+  background-color: var(--color-surface);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-sm);
+  max-width: 1000px;
+  border-radius: var(--size-radius);
+}
+
+.info-company {
+  position: relative;
+  display: grid;
+  width: 100%;
+  z-index: 100;
+  margin: var(--space-sm);
+  background-color: var(--color-surface);
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-sm);
+  max-width: 1000px;
+  border-radius: var(--size-radius);
+}
+
+/* --- Form Field Structure --- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-sm);
+}
+
+.form-field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* --- Form Input, Select, and Textarea Base Styling --- */
+.add-company input,
+.add-company select,
+.add-company textarea,
+.info-company select,
+.info-company input,
+.info-company textarea {
+  /* Added textarea for future proofing */
+  width: 100%;
+  height: var(--size-input-height);
+  padding: 0 0.75em;
+  font-size: var(--space-sm);
+  color: var(--color-text-dark);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--size-radius);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* --- Focus State --- */
+.add-company input:focus,
+.add-company select:focus,
+.add-company textarea:focus {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+/* --- Select Specific Styling --- */
+.add-company select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* --- Form Grid Spanning --- */
+.add-company > .form-field:first-child,
+.add-company > .form-field:last-child,
+.form-submit-area {
+  /* Spans both columns */
+  grid-column: 1 / -1;
+}
+
+.info-company > .form-field:first-child,
+.info-company > .form-field:last-child,
+.form-submit-area {
+  /* Spans both columns */
+  grid-column: 1 / -1;
+}
+/* --- Form Submit Area and Button --- */
+.form-submit-area {
+  padding-top: var(--space-sm);
+  text-align: right;
+}
+
+.submit-form-btn {
+  /* Grouped with the add-company-button due to identical styles */
+  height: var(--size-input-height);
+  padding: 0 25px;
+  font-size: var(--space-sm);
+  font-weight: 600;
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--size-radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+}
+
+.submit-form-btn:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.submit-form-btn:active {
+  background-color: #444444;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+
+/* Styling for the Filter Component */
+
+.filter-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 999; /* Below the Notification, but above everything else */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top */
+    padding-top: 50px;
+}
+
+.company-filter-container {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px 25px;
+    margin-bottom: 20px;
+}
+
+.advanced-filters-grid {
+    border-top: 1px dashed #ccc;
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.filter-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.filter-field input, .filter-field select {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.range-group .range-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.range-group .range-inputs input {
+    flex-grow: 1;
+}
+
+.filter-action-area {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.apply-filter-btn {
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.apply-filter-btn:hover {
+    background-color: #000000;
+}
+
+.clear-filter-btn {
+    background: none;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.clear-filter-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.advanced-toggle-btn {
+    grid-column: 1 / -1; /* Make button span the full width */
+    background: none;
+    color: #000000;
+    border: none;
+    padding: 10px 0;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9em;
+}

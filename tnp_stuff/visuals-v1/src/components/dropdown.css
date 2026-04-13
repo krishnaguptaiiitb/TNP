@@ -1,0 +1,104 @@
+/* dropdown.css - flat color version */
+
+/* Root variables using your palette */
+:root {
+  /* Base colors */
+  --champagne-pink: #efd9ceff;       /* body background */
+  --mauve: #dec0f1ff;                /* submenu background */
+  --wisteria: #b79cedff;             /* accent / hover background */
+  --tropical-indigo: #957fefff;      /* main navbar background */
+  --medium-slate-blue: #7161efff;    /* alternate submenu / highlight */
+
+  /* Accent / hover colors */
+  --accent-color: var(--wisteria);
+  --text-color: #ffffff;
+  --indicator-color: #ffffff;
+
+  --submenu-shadow: rgba(0, 0, 0, 0.2);
+  --border-radius: 8px;
+  --font-family: 'Arial', sans-serif;
+}
+
+/* Navbar container */
+.navbar {
+  background-color: var(--tropical-indigo); /* flat navbar color */
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  font-family: var(--font-family);
+}
+
+/* Dropdown list reset */
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* top-level horizontal menu */
+}
+
+/* Dropdown items */
+.dropdown-item {
+  position: relative;
+  margin-right: 20px;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+/* Title of each dropdown item */
+.dropdown-title {
+  padding: 15px 10px;
+  white-space: nowrap;
+  border-radius: var(--border-radius);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-title:hover {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+/* Indicator + / - */
+.indicator {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--indicator-color);
+}
+
+/* Submenu container */
+/* Submenu container */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--mauve); /* flat submenu background */
+  border-radius: var(--border-radius);
+  min-width: 180px;
+  z-index: 10;
+  padding: 5px 0;
+
+  /* subtle shadow */
+  box-shadow: 0 4px 12px var(--submenu-shadow); /* updated for a soft shadow */
+}
+
+
+/* Submenu items stacked vertically */
+.submenu .dropdown-list {
+  flex-direction: column;
+}
+
+.submenu .dropdown-item {
+  margin: 0;
+}
+
+.submenu .dropdown-title {
+  padding: 10px 15px;
+}
+
+.submenu .dropdown-title:hover {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
